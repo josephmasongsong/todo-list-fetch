@@ -2,7 +2,7 @@
   "todos": [
     {
       "title": "Gym",
-      "complete": false,
+      "complete": true,
       "id": 1
     },
     {

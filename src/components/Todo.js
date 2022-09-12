@@ -1,5 +1,9 @@
 import { useState } from 'react';
 
+const buttonStyle = {
+  marginLeft: '5px',
+};
+
 const Todo = ({ todo, updateTodo, deleteTodo }) => {
   const [editable, setEditable] = useState(false);
   const [title, setTitle] = useState(todo.title);
@@ -26,15 +30,13 @@ const Todo = ({ todo, updateTodo, deleteTodo }) => {
       {todo.title}
     </span>
   ) : (
-    <label htmlFor="title">
-      <input
-        type="text"
-        name="title"
-        onChange={e => setTitle(e.target.value)}
-        value={title}
-        onKeyDown={e => handleUpdateOnKeyDown(e)}
-      />
-    </label>
+    <input
+      type="text"
+      name="title"
+      onChange={e => setTitle(e.target.value)}
+      value={title}
+      onKeyDown={e => handleUpdateOnKeyDown(e)}
+    />
   );
 
   return (
@@ -42,20 +44,24 @@ const Todo = ({ todo, updateTodo, deleteTodo }) => {
       {todoItem}
 
       {!todo.complete && (
-        <button onClick={() => setEditable(!editable)}>
+        <button onClick={() => setEditable(!editable)} style={buttonStyle}>
           {editable ? 'cancel' : 'edit'}
         </button>
       )}
 
       {editable ? (
-        <button onClick={handleUpdate}>save</button>
+        <button onClick={handleUpdate} style={buttonStyle}>
+          save
+        </button>
       ) : (
         <>
           {!todo.complete && (
-            <button onClick={() => deleteTodo(todo.id)}>delete</button>
+            <button onClick={() => deleteTodo(todo.id)} style={buttonStyle}>
+              delete
+            </button>
           )}
 
-          <label htmlFor="complete">
+          <label>
             <input
               type="checkbox"
               name="complete"

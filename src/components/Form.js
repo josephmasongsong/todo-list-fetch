@@ -21,7 +21,7 @@ const Form = ({ addTodo }) => {
         onChange={e => setTitle(e.target.value)}
         required
       />
-      <input type="submit" value="add todo" />
+      <input type="submit" value="add todo" style={{ marginLeft: '5px' }} />
     </form>
   );
 };

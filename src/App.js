@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import Form from './components/Form';
 import Todo from './components/Todo';
-import './App.css';
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -53,7 +52,7 @@ function App() {
 
   return (
     <div>
-      <h1>Todo List</h1>
+      <h1>Todo List Fetch</h1>
       <Form addTodo={addTodo} />
       {todos.map(todo => (
         <Todo
