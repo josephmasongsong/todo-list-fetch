@@ -1,10 +1,27 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+
+export type Todo = {
+  id: number;
+  title: string;
+  complete: boolean;
+};
+
+type Update = (todo: Todo) => void;
+type Delete = (id: number) => void;
 
 const buttonStyle = {
   marginLeft: '5px',
 };
 
-const Todo = ({ todo, updateTodo, deleteTodo }) => {
+const TodoItem = ({
+  todo,
+  updateTodo,
+  deleteTodo,
+}: {
+  todo: Todo;
+  updateTodo: Update;
+  deleteTodo: Delete;
+}) => {
   const [editable, setEditable] = useState(false);
   const [title, setTitle] = useState(todo.title);
   const [isChecked, setIsChecked] = useState(todo.complete);
@@ -14,7 +31,7 @@ const Todo = ({ todo, updateTodo, deleteTodo }) => {
     setEditable(false);
   };
 
-  const handleUpdateOnKeyDown = e => {
+  const handleUpdateOnKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' || e.keyCode === 13) {
       handleUpdate();
     }
@@ -35,7 +52,7 @@ const Todo = ({ todo, updateTodo, deleteTodo }) => {
       name="title"
       onChange={e => setTitle(e.target.value)}
       value={title}
-      onKeyDown={e => handleUpdateOnKeyDown(e)}
+      onKeyDown={handleUpdateOnKeyDown}
     />
   );
 
@@ -76,4 +93,4 @@ const Todo = ({ todo, updateTodo, deleteTodo }) => {
   );
 };
 
-export default Todo;
+export default TodoItem;

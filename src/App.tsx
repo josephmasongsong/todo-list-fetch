@@ -1,23 +1,24 @@
 import { useState, useEffect } from 'react';
 import Form from './components/Form';
-import Todo from './components/Todo';
+import TodoItem, { Todo } from './components/TodoItem';
 
 function App() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState<Todo[]>([]);
   const url = 'http://localhost:4000/todos/';
 
   useEffect(() => {
-    (() => {
+    const fetchData = () => {
       fetch(url)
         .then(res => res.json())
         .then(
           data => setTodos(data),
           error => console.log(error.message)
         );
-    })();
+    };
+    fetchData();
   }, []);
 
-  const addTodo = todo => {
+  const addTodo = (todo: { title: string; complete: boolean }) => {
     fetch(url, {
       method: 'POST',
       headers: { 'Content-type': 'application/json' },
@@ -30,7 +31,7 @@ function App() {
       );
   };
 
-  const updateTodo = todo => {
+  const updateTodo = (todo: Todo) => {
     fetch(url + todo.id, {
       method: 'PUT',
       headers: { 'Content-type': 'application/json' },
@@ -43,9 +44,11 @@ function App() {
       );
   };
 
-  const deleteTodo = id => {
+  const deleteTodo = (id: number) => {
     fetch(url + id, { method: 'DELETE' }).then(
-      setTodos(todos.filter(t => t.id !== id)),
+      () => {
+        setTodos(todos.filter(t => t.id !== id));
+      },
       error => console.log(error.message)
     );
   };
@@ -54,8 +57,8 @@ function App() {
     <div>
       <h1>Todo List Fetch</h1>
       <Form addTodo={addTodo} />
-      {todos.map(todo => (
-        <Todo
+      {todos.map((todo: Todo) => (
+        <TodoItem
           key={todo.id}
           todo={todo}
           updateTodo={updateTodo}
