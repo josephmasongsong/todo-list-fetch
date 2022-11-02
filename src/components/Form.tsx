@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-const Form = ({ addTodo }) => {
+type Add = (object: { title: string; complete: boolean }) => void;
+
+const Form = ({ addTodo }: { addTodo: Add }) => {
   const [title, setTitle] = useState('');
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const todo = {
       title,
