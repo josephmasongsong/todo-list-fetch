@@ -7,8 +7,9 @@ function App() {
   const url = 'http://localhost:4000/todos/';
 
   useEffect(() => {
+    const controller = new AbortController();
     const fetchData = () => {
-      fetch(url)
+      fetch(url, { signal: controller.signal })
         .then(res => res.json())
         .then(
           data => setTodos(data),
@@ -16,7 +17,10 @@ function App() {
         );
     };
     fetchData();
-  }, []);
+    return () => {
+      controller.abort();
+    };
+  }, [url]);
 
   const addTodo = (todo: { title: string; complete: boolean }) => {
     fetch(url, {
