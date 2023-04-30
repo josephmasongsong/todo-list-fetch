@@ -22,7 +22,7 @@ function App() {
     };
   }, [url]);
 
-  const addTodo = (todo: { title: string; complete: boolean }) => {
+  const addTodo = (todo: Partial<Todo>) => {
     fetch(url, {
       method: 'POST',
       headers: { 'Content-type': 'application/json' },

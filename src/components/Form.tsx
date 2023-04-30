@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { Todo } from './TodoItem';
 
-type Add = (object: { title: string; complete: boolean }) => void;
+type Add = (todo: Partial<Todo>) => void;
 
 const Form = ({ addTodo }: { addTodo: Add }) => {
   const [title, setTitle] = useState('');
@@ -17,12 +18,7 @@ const Form = ({ addTodo }: { addTodo: Add }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={title}
-        onChange={e => setTitle(e.target.value)}
-        required
-      />
+      <input type="text" value={title} onChange={e => setTitle(e.target.value)} required />
       <input type="submit" value="add todo" style={{ marginLeft: '5px' }} />
     </form>
   );
