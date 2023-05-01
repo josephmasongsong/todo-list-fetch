@@ -43,7 +43,10 @@ function App() {
     })
       .then(res => res.json())
       .then(
-        data => setTodos(prevState => prevState.map(t => (t.id === todo.id ? data : t))),
+        data =>
+          setTodos(prevState =>
+            prevState.map(t => (t.id === todo.id ? data : t))
+          ),
         error => console.log(error.message)
       );
   };
@@ -62,7 +65,12 @@ function App() {
       <h1>Todo List Fetch</h1>
       <Form addTodo={addTodo} />
       {todos.map((todo: Todo) => (
-        <TodoItem key={todo.id} todo={todo} updateTodo={updateTodo} deleteTodo={deleteTodo} />
+        <TodoItem
+          key={todo.id}
+          todo={todo}
+          updateTodo={updateTodo}
+          deleteTodo={deleteTodo}
+        />
       ))}
     </div>
   );

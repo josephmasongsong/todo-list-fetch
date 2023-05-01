@@ -24,10 +24,10 @@ const TodoItem = ({
 }) => {
   const [editable, setEditable] = useState(false);
   const [title, setTitle] = useState(todo.title);
-  const [isChecked, setIsChecked] = useState(todo.complete);
+  const [complete, setComplete] = useState(todo.complete);
 
   const handleUpdate = () => {
-    updateTodo({ ...todo, title });
+    updateTodo({ ...todo, title, complete });
     setEditable(false);
   };
 
@@ -38,13 +38,13 @@ const TodoItem = ({
   };
 
   const handleCheck = () => {
-    updateTodo({ ...todo, complete: !isChecked });
-    setIsChecked(!isChecked);
+    updateTodo({ ...todo, title, complete: !complete });
+    setComplete(complete => !complete);
   };
 
   const todoItem = !editable ? (
-    <span style={todo.complete ? { textDecoration: 'line-through' } : {}}>
-      {todo.title}
+    <span style={complete ? { textDecoration: 'line-through' } : {}}>
+      {title}
     </span>
   ) : (
     <input
@@ -60,7 +60,7 @@ const TodoItem = ({
     <div style={{ marginTop: '5px' }}>
       {todoItem}
 
-      {!todo.complete && (
+      {!complete && (
         <button onClick={() => setEditable(!editable)} style={buttonStyle}>
           {editable ? 'cancel' : 'edit'}
         </button>
@@ -72,7 +72,7 @@ const TodoItem = ({
         </button>
       ) : (
         <>
-          {!todo.complete && (
+          {!complete && (
             <button onClick={() => deleteTodo(todo.id)} style={buttonStyle}>
               delete
             </button>
@@ -82,10 +82,10 @@ const TodoItem = ({
             <input
               type="checkbox"
               name="complete"
-              checked={isChecked}
+              checked={complete}
               onChange={handleCheck}
             />
-            {!todo.complete ? 'incomplete' : 'complete'}
+            {!complete ? 'incomplete' : 'complete'}
           </label>
         </>
       )}

@@ -1,29 +1,29 @@
 {
   "todos": [
     {
-      "title": "Gym",
-      "complete": true,
+      "title": "GYM",
+      "complete": false,
       "id": 1
     },
     {
-      "title": "Tan",
-      "complete": false,
+      "title": "TAN",
+      "complete": true,
       "id": 2
     },
     {
-      "title": "Laundry",
-      "complete": false,
+      "title": "LAUNDRY",
+      "complete": true,
       "id": 3
     },
     {
-      "title": "Gym, Tan, Laundry",
-      "complete": false,
-      "id": 5
+      "title": "GTL",
+      "complete": true,
+      "id": 4
     },
     {
-      "title": "GTL",
-      "complete": false,
-      "id": 6
+      "title": "G.T.L.",
+      "complete": true,
+      "id": 5
     }
   ]
 }
