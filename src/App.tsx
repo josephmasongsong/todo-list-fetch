@@ -4,7 +4,7 @@ import TodoItem, { Todo } from './components/TodoItem';
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
-  const url = 'http://localhost:4000/todos/';
+  const url = 'http://localhost:1337/api/v1/todos/';
 
   useEffect(() => {
     const controller = new AbortController();
@@ -12,7 +12,7 @@ function App() {
       fetch(url, { signal: controller.signal })
         .then(res => res.json())
         .then(
-          data => setTodos(data),
+          data => setTodos(data.todos),
           error => console.log(error.message)
         );
     };
@@ -36,7 +36,7 @@ function App() {
   };
 
   const updateTodo = (todo: Todo) => {
-    fetch(url + todo.id, {
+    fetch(url + todo._id, {
       method: 'PUT',
       headers: { 'Content-type': 'application/json' },
       body: JSON.stringify(todo),
@@ -45,7 +45,7 @@ function App() {
       .then(
         data =>
           setTodos(prevState =>
-            prevState.map(t => (t.id === todo.id ? data : t))
+            prevState.map(t => (t._id === todo._id ? data : t))
           ),
         error => console.log(error.message)
       );
@@ -54,7 +54,7 @@ function App() {
   const deleteTodo = (id: number) => {
     fetch(url + id, { method: 'DELETE' }).then(
       () => {
-        setTodos(prevState => prevState.filter(t => t.id !== id));
+        setTodos(prevState => prevState.filter(t => t._id !== id));
       },
       error => console.log(error.message)
     );
@@ -66,7 +66,7 @@ function App() {
       <Form addTodo={addTodo} />
       {todos.map((todo: Todo) => (
         <TodoItem
-          key={todo.id}
+          key={todo._id}
           todo={todo}
           updateTodo={updateTodo}
           deleteTodo={deleteTodo}

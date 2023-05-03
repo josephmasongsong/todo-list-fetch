@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 export type Todo = {
-  id: number;
+  _id: number;
   title: string;
   complete: boolean;
 };
@@ -27,7 +27,7 @@ const TodoItem = ({
   const [complete, setComplete] = useState(todo.complete);
 
   const handleUpdate = () => {
-    updateTodo({ ...todo, title, complete });
+    updateTodo({ ...todo, title });
     setEditable(false);
   };
 
@@ -73,7 +73,7 @@ const TodoItem = ({
       ) : (
         <>
           {!complete && (
-            <button onClick={() => deleteTodo(todo.id)} style={buttonStyle}>
+            <button onClick={() => deleteTodo(todo._id)} style={buttonStyle}>
               delete
             </button>
           )}
