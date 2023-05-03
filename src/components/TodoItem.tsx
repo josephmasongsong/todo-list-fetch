@@ -62,19 +62,19 @@ const TodoItem = ({
 
       {!complete && (
         <button onClick={() => setEditable(!editable)} style={buttonStyle}>
-          {editable ? 'cancel' : 'edit'}
+          {editable ? '❌ cancel' : '✏️ edit'}
         </button>
       )}
 
       {editable ? (
         <button onClick={handleUpdate} style={buttonStyle}>
-          save
+          ✅ save
         </button>
       ) : (
         <>
           {!complete && (
             <button onClick={() => deleteTodo(todo._id)} style={buttonStyle}>
-              delete
+              🗑️ delete
             </button>
           )}
 
