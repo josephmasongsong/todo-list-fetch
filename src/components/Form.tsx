@@ -18,8 +18,13 @@ const Form = ({ addTodo }: { addTodo: Add }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" value={title} onChange={e => setTitle(e.target.value)} required />
-      <input type="submit" value="add todo" style={{ marginLeft: '5px' }} />
+      <input
+        type="text"
+        value={title}
+        onChange={e => setTitle(e.target.value)}
+        required
+      />
+      <input type="submit" value="📝 add todo" style={{ marginLeft: '5px' }} />
     </form>
   );
 };
