@@ -7,7 +7,7 @@ function App() {
   const [loadingList, setLoadingList] = useState(false);
   const [loadingTodo, setLoadingTodo] = useState(false);
 
-  const url = 'http://localhost:1337/api/v1/todos/';
+  const url = 'https://todo-list-api-tl77.onrender.com/api/v1/todos/';
 
   useEffect(() => {
     setLoadingList(true);
