@@ -4,16 +4,26 @@ import TodoItem, { Todo } from './components/TodoItem';
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [loadingList, setLoadingList] = useState(false);
+  const [loadingTodo, setLoadingTodo] = useState(false);
+
   const url = 'http://localhost:1337/api/v1/todos/';
 
   useEffect(() => {
+    setLoadingList(true);
     const controller = new AbortController();
     const fetchData = () => {
       fetch(url, { signal: controller.signal })
         .then(res => res.json())
         .then(
-          data => setTodos(data.todos),
-          error => console.log(error.message)
+          data => {
+            setTodos(data.todos);
+            setLoadingList(false);
+          },
+          error => {
+            console.log(error.message);
+            setLoadingList(false);
+          }
         );
     };
     fetchData();
@@ -23,6 +33,7 @@ function App() {
   }, [url]);
 
   const addTodo = (todo: Partial<Todo>) => {
+    setLoadingTodo(true);
     fetch(url, {
       method: 'POST',
       headers: { 'Content-type': 'application/json' },
@@ -30,8 +41,14 @@ function App() {
     })
       .then(res => res.json())
       .then(
-        data => setTodos(prevState => [...prevState, data]),
-        error => console.log(error.message)
+        data => {
+          setTodos(prevState => [...prevState, data]);
+          setLoadingTodo(false);
+        },
+        error => {
+          console.log(error.message);
+          setLoadingTodo(false);
+        }
       );
   };
 
@@ -60,9 +77,13 @@ function App() {
     );
   };
 
+  if (loadingList) {
+    return <p>Loading todos...</p>;
+  }
+
   return (
-    <div>
-      <h1>Todo List Fetch</h1>
+    <div style={{ padding: '16px' }}>
+      <h1>Todo List</h1>
       <Form addTodo={addTodo} />
       {todos.map((todo: Todo) => (
         <TodoItem
@@ -72,6 +93,7 @@ function App() {
           deleteTodo={deleteTodo}
         />
       ))}
+      {loadingTodo && <p>Saving todo...</p>}
     </div>
   );
 }
